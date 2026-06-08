@@ -9,8 +9,6 @@ app.use(express.json());
 
 app.get("/network-test", async (req, res) => {
   try {
-    const start = Date.now();
-
     const response = await fetch("https://wms.thegioididong.com");
 
     res.json({
@@ -21,8 +19,9 @@ app.get("/network-test", async (req, res) => {
   } catch (e) {
     res.json({
       success: false,
-
-      error: e.message,
+      name: e.name,
+      message: e.message,
+      stack: e.stack,
     });
   }
 });

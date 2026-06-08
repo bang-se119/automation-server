@@ -25,7 +25,9 @@ app.post("/update-status-tradein-jobcard", async (req, res) => {
 
     const page = await browser.newPage();
 
-    await page.goto("https://wms.thegioididong.com");
+    await page.goto("https://wms.thegioididong.com", {
+      timeout: 60000, // 60 giây
+    });
 
     console.log("☄️ Website opened");
 

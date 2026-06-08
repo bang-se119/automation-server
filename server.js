@@ -1,11 +1,24 @@
 const express = require("express");
 const cors = require("cors");
+const dns = require("dns").promises;
 const { chromium } = require("playwright");
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+app.get("/dns-test", async (req, res) => {
+  try {
+    const result = await dns.lookup("wms.thegioididong.com");
+
+    res.json(result);
+  } catch (e) {
+    res.json({
+      error: e.message,
+    });
+  }
+});
 
 app.get("/network-test", async (req, res) => {
   try {

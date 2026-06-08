@@ -11,8 +11,9 @@ app.post("/update-status-tradein-jobcard", async (req, res) => {
   try {
     const { user, identity, jobcard } = req.body;
 
+    console.log("Launching browser...");
     const browser = await chromium.launch({
-      headless: false,
+      headless: true,
       args: ["--no-sandbox", "--disable-setuid-sandbox"],
     });
 
@@ -84,6 +85,6 @@ app.post("/update-status-tradein-jobcard", async (req, res) => {
   }
 });
 
-app.listen(process.env.PORT || 3000, () => {
-  console.log(" 🚀 Server running on port " + (process.env.PORT || 3000));
+app.listen(process.env.PORT || 10000, () => {
+  console.log(" 🚀 Server running on port " + (process.env.PORT || 10000));
 });

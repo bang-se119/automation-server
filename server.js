@@ -7,6 +7,26 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.get("/network-test", async (req, res) => {
+  try {
+    const start = Date.now();
+
+    const response = await fetch("https://wms.thegioididong.com");
+
+    res.json({
+      success: true,
+      status: response.status,
+      elapsed: Date.now() - start,
+    });
+  } catch (e) {
+    res.json({
+      success: false,
+
+      error: e.message,
+    });
+  }
+});
+
 app.post("/update-status-tradein-jobcard", async (req, res) => {
   try {
     const { user, identity, jobcard } = req.body;

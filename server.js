@@ -40,17 +40,33 @@ app.post("/update-status-tradein-jobcard", async (req, res) => {
     await page.fill("#otp-5", initInfo.password[4]);
     await page.fill("#otp-6", initInfo.password[5]);
 
-    console.log("[1] LOGIN");
+    console.log("[1] Đăng nhập");
     await page.click("#kc-login");
 
     await page.click("#loginStore");
 
-    console.log("[2] SEARCH JOBCARD");
+    console.log("[2] Tìm theo mã Jobcard");
     await page.fill("#txtKeySearch", initInfo.jobcard);
 
     await page.click("#btnSearch");
 
-    await page.click(".component-a");
+    console.log("[3] Chọn Jobcard chỉ định");
+    await page.getByRole('link', { name: initInfo.jobcard }).click();
+
+    console.log("[4] Click 'Cập nhập tình trạng lỗi'");
+    await page.getByRole('link', { name: 'Cập nhập tình trạng lỗi' }).click();
+
+    // Error type
+    await page.click("#select2-slSymptomRepair-container");
+
+    console.log("[5] Chọn loại lỗi");
+    await page.fill(".select2-search__field", "Thu cũ - đổi mới");
+
+    await page.getByRole('treeitem', { name: 'Thu cũ - đổi mới' }).click();
+
+    // Note
+    console.log("[6] Nhập ghi chú");
+    await page.fill("#noteSymptomPBKT", "TCDM");
 
     console.log("Website flow finished 🎬");
 

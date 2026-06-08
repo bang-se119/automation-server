@@ -13,6 +13,7 @@ app.post("/update-status-tradein-jobcard", async (req, res) => {
 
     const browser = await chromium.launch({
       headless: false,
+      args: ["--no-sandbox", "--disable-setuid-sandbox"],
     });
 
     const initInfo = {
@@ -51,10 +52,10 @@ app.post("/update-status-tradein-jobcard", async (req, res) => {
     await page.click("#btnSearch");
 
     console.log("[3] Chọn Jobcard chỉ định");
-    await page.getByRole('link', { name: initInfo.jobcard }).click();
+    await page.getByRole("link", { name: initInfo.jobcard }).click();
 
     console.log("[4] Click 'Cập nhập tình trạng lỗi'");
-    await page.getByRole('link', { name: 'Cập nhập tình trạng lỗi' }).click();
+    await page.getByRole("link", { name: "Cập nhập tình trạng lỗi" }).click();
 
     // Error type
     await page.click("#select2-slSymptomRepair-container");
@@ -62,7 +63,7 @@ app.post("/update-status-tradein-jobcard", async (req, res) => {
     console.log("[5] Chọn loại lỗi");
     await page.fill(".select2-search__field", "Thu cũ - đổi mới");
 
-    await page.getByRole('treeitem', { name: 'Thu cũ - đổi mới' }).click();
+    await page.getByRole("treeitem", { name: "Thu cũ - đổi mới" }).click();
 
     // Note
     console.log("[6] Nhập ghi chú");

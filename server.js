@@ -22,19 +22,26 @@ app.get("/dns-test", async (req, res) => {
 
 app.get("/network-test", async (req, res) => {
   try {
-    const response = await fetch("https://wms.thegioididong.com");
+    const response = await fetch("https://wms.thegioididong.com", {
+      signal: AbortSignal.timeout(10000),
+    });
 
     res.json({
       success: true,
       status: response.status,
-      elapsed: Date.now() - start,
     });
   } catch (e) {
     res.json({
       success: false,
       name: e.name,
       message: e.message,
-      stack: e.stack,
+      cause: {
+        code: e.cause?.code,
+        errno: e.cause?.errno,
+        syscall: e.cause?.syscall,
+        address: e.cause?.address,
+        port: e.cause?.port,
+      },
     });
   }
 });

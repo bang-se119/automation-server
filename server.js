@@ -46,6 +46,21 @@ app.get("/network-test", async (req, res) => {
   }
 });
 
+app.get("/google-test", async (req, res) => {
+  try {
+    const response = await fetch("https://google.com");
+    res.json({
+      success: true,
+      status: response.status,
+    });
+  } catch (e) {
+    res.json({
+      success: false,
+      error: e.message,
+    });
+  }
+});
+
 app.post("/update-status-tradein-jobcard", async (req, res) => {
   try {
     const { user, identity, jobcard } = req.body;

@@ -1,6 +1,11 @@
 services:
   - type: web
     name: jobcard-automation
+
     runtime: node
-    buildCommand: npm install
+
+    buildCommand: |
+      npm install
+      npx playwright install chromium
+
     startCommand: npm start

@@ -67,8 +67,12 @@ app.post("/update-status-tradein-jobcard", async (req, res) => {
 
     console.log("Launching browser...");
     const browser = await chromium.launch({
-      headless: true,
-      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+      headless: false,
+      /**
+       * Not show browser
+       */
+      // headless: true,
+      // args: ["--no-sandbox", "--disable-setuid-sandbox"],
     });
 
     const initInfo = {
@@ -125,6 +129,14 @@ app.post("/update-status-tradein-jobcard", async (req, res) => {
     // Note
     console.log("[6] Nhập ghi chú");
     await page.fill("#noteSymptomPBKT", "TCDM");
+
+    // Save
+    console.log("[7] Lưu loại lỗi");
+    await page.locator('.btn.btn-primary').first().click();
+
+    // Update Jobcard
+    console.log("[8] Cập nhật Jobcard TCDM thành công");
+    //  await page.click("#SaveSolution");
 
     console.log("Website flow finished 🎬");
 
